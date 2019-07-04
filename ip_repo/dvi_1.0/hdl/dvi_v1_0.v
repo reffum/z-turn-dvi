@@ -27,7 +27,9 @@ module dvi_v1_0 #
    )
    (
 	// Users to add ports here
-   
+	output 										dvi_clk_p, dvi_clk_n,
+	output [2:0] 								dvi_data_p, dvi_data_n,
+	
 
 	// User ports ends
 	// Do not modify the ports beyond this line
