@@ -102,11 +102,8 @@ module tb;
         .FIXED_IO_mio(),
         .FIXED_IO_ps_clk(FIXED_IO_ps_clk),
         .FIXED_IO_ps_porb(FIXED_IO_ps_porb),
-        .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb),
-        .vid_clk(vid_clk),
-        .vid_data(vid_data),
-        .vid_hsync(vid_hsync),
-        .vid_vsync(vid_vsync));
+        .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb)
+	  );
 
    
 
