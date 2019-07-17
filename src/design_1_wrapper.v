@@ -9,6 +9,13 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
+//
+// DVI signals TMDS_0:
+// 3 - clock
+// 2 - red
+// 1 - green
+// 0 - blue
+//
 module design_1_wrapper
    (DDR_addr,
     DDR_ba,
@@ -30,7 +37,9 @@ module design_1_wrapper
     FIXED_IO_mio,
     FIXED_IO_ps_clk,
     FIXED_IO_ps_porb,
-    FIXED_IO_ps_srstb);
+    FIXED_IO_ps_srstb,
+    TMDS_0,
+    TMDSB_0);
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -52,6 +61,8 @@ module design_1_wrapper
   inout FIXED_IO_ps_clk;
   inout FIXED_IO_ps_porb;
   inout FIXED_IO_ps_srstb;
+  output [3:0] TMDS_0;
+  output [3:0] TMDSB_0;
 
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -96,5 +107,7 @@ module design_1_wrapper
         .FIXED_IO_mio(FIXED_IO_mio),
         .FIXED_IO_ps_clk(FIXED_IO_ps_clk),
         .FIXED_IO_ps_porb(FIXED_IO_ps_porb),
-        .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb));
+        .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb),
+        .TMDS_0(TMDS_0),
+        .TMDSB_0(TMDSB_0));
 endmodule
