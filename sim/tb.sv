@@ -75,7 +75,7 @@ module tb;
       `A.write_data(PLANE1_ADDR,4, PLANE1_ADDR, resp);      
       `A.write_data(CONTROL_ADDR,4, 'h81, resp);
       
-      #5ms;
+      #50ms;
       
       $finish;
       

@@ -1,4 +1,6 @@
 *~
+vsim.wlf
+transcript
 /z-turn-dvi/*
 /src/ip/
 /src/ui/
@@ -9,3 +11,4 @@
 /src/ipshared/
 /src/sim/
 /src/synth/
+work/
