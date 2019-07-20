@@ -866,6 +866,27 @@
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_dvi_encoder_top_0_0</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>rst_25_MHz</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="proc_sys_reset" spirit:vendor="xilinx.com" spirit:version="5.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_proc_sys_reset_0_0</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>rst_250M</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="proc_sys_reset" spirit:vendor="xilinx.com" spirit:version="5.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_proc_sys_reset_0_1</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>rst_50M</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="proc_sys_reset" spirit:vendor="xilinx.com" spirit:version="5.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_proc_sys_reset_1_0</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
     </spirit:componentInstances>
     <spirit:interconnections>
       <spirit:interconnection>
@@ -922,6 +943,9 @@
         <spirit:name>processing_system7_0_FCLK_RESET0_N</spirit:name>
         <spirit:internalPortReference spirit:componentRef="processing_system7_0" spirit:portRef="FCLK_RESET0_N"/>
         <spirit:internalPortReference spirit:componentRef="rst_ps7_0_100M" spirit:portRef="ext_reset_in"/>
+        <spirit:internalPortReference spirit:componentRef="rst_25_MHz" spirit:portRef="ext_reset_in"/>
+        <spirit:internalPortReference spirit:componentRef="rst_50M" spirit:portRef="ext_reset_in"/>
+        <spirit:internalPortReference spirit:componentRef="rst_250M" spirit:portRef="ext_reset_in"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>rst_ps7_0_100M_peripheral_aresetn</spirit:name>
@@ -929,10 +953,8 @@
         <spirit:internalPortReference spirit:componentRef="axi_smc" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="v_axi4s_vid_out_0" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="v_frmbuf_rd_0" spirit:portRef="ap_rst_n"/>
-        <spirit:internalPortReference spirit:componentRef="v_tc_0" spirit:portRef="resetn"/>
         <spirit:internalPortReference spirit:componentRef="ps7_0_axi_periph" spirit:portRef="S00_ARESETN"/>
         <spirit:internalPortReference spirit:componentRef="ps7_0_axi_periph" spirit:portRef="M00_ARESETN"/>
-        <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="rstin"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>rst_ps7_0_100M_interconnect_aresetn</spirit:name>
@@ -945,6 +967,7 @@
         <spirit:internalPortReference spirit:componentRef="v_axi4s_vid_out_0" spirit:portRef="vid_io_out_clk"/>
         <spirit:internalPortReference spirit:componentRef="v_tc_0" spirit:portRef="clk"/>
         <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="pclk"/>
+        <spirit:internalPortReference spirit:componentRef="rst_25_MHz" spirit:portRef="slowest_sync_clk"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>v_axi4s_vid_out_0_vid_data</spirit:name>
@@ -957,11 +980,13 @@
         <spirit:name>processing_system7_0_FCLK_CLK2</spirit:name>
         <spirit:internalPortReference spirit:componentRef="processing_system7_0" spirit:portRef="FCLK_CLK2"/>
         <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="pclkx2"/>
+        <spirit:internalPortReference spirit:componentRef="rst_50M" spirit:portRef="slowest_sync_clk"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>processing_system7_0_FCLK_CLK3</spirit:name>
         <spirit:internalPortReference spirit:componentRef="processing_system7_0" spirit:portRef="FCLK_CLK3"/>
         <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="pclkx10"/>
+        <spirit:internalPortReference spirit:componentRef="rst_250M" spirit:portRef="slowest_sync_clk"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>xlslice_0_Dout</spirit:name>
@@ -1002,6 +1027,21 @@
         <spirit:name>dvi_encoder_top_0_TMDSB</spirit:name>
         <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="TMDSB"/>
         <spirit:externalPortReference spirit:portRef="TMDSB_0"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>locked</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="v_axi4s_vid_out_0" spirit:portRef="locked"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>rst_25_MHz_peripheral_aresetn</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="rst_25_MHz" spirit:portRef="peripheral_aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="v_tc_0" spirit:portRef="resetn"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>rst_25_MHz_peripheral_reset</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="rst_25_MHz" spirit:portRef="peripheral_reset"/>
+        <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="rstin"/>
+        <spirit:internalPortReference spirit:componentRef="v_axi4s_vid_out_0" spirit:portRef="vid_io_out_reset"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
