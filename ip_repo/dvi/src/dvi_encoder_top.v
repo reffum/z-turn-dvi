@@ -89,8 +89,7 @@ module dvi_encoder_top (
 
   wire tmdsclk;
 
-  serdes_n_to_1 #(
-    .SF           (5))
+  serdes_5_to_1
   clkout (
     .iob_data_out (tmdsclk),
     .ioclk        (pclkx10),
@@ -104,7 +103,7 @@ module dvi_encoder_top (
   //
   // Forward TMDS Data: 3 channels
   //
-  serdes_n_to_1 #(.SF(5)) oserdes0 (
+  serdes_5_to_1  oserdes0 (
              .ioclk(pclkx10),
              .serdesstrobe(serdesstrobe),
              .reset(rstin),
@@ -112,7 +111,7 @@ module dvi_encoder_top (
              .datain(tmds_data0),
              .iob_data_out(tmdsint[0])) ;
 
-  serdes_n_to_1 #(.SF(5)) oserdes1 (
+  serdes_5_to_1 oserdes1 (
              .ioclk(pclkx10),
              .serdesstrobe(serdesstrobe),
              .reset(rstin),
@@ -120,7 +119,7 @@ module dvi_encoder_top (
              .datain(tmds_data1),
              .iob_data_out(tmdsint[1])) ;
 
-  serdes_n_to_1 #(.SF(5)) oserdes2 (
+  serdes_5_to_1 oserdes2 (
              .ioclk(pclkx10),
              .serdesstrobe(serdesstrobe),
              .reset(rstin),
