@@ -403,9 +403,6 @@
           <spirit:configurableElementValue spirit:referenceId="PCW_INCLUDE_ACP_TRANS_CHECK">0</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="PCW_S_AXI_HP0_ID_WIDTH">6</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="PCW_S_AXI_HP0_DATA_WIDTH">32</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="PCW_S_AXI_HP1_DATA_WIDTH">64</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="PCW_S_AXI_HP2_DATA_WIDTH">64</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="PCW_S_AXI_HP3_DATA_WIDTH">64</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="PCW_EN_DDR">1</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="PCW_EN_SMC">0</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="PCW_EN_QSPI">1</spirit:configurableElementValue>
@@ -860,10 +857,21 @@
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
-        <spirit:instanceName>dvi_encoder_top_0</spirit:instanceName>
-        <spirit:componentRef spirit:library="user" spirit:name="dvi_encoder_top" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:instanceName>xlconstant_1</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="xlconstant" spirit:vendor="xilinx.com" spirit:version="1.1"/>
         <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_dvi_encoder_top_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_xlconstant_1_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="CONST_WIDTH">4</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="CONST_VAL">0</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>xlconstant_2</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="xlconstant" spirit:vendor="xilinx.com" spirit:version="1.1"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_xlconstant_1_1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="CONST_WIDTH">4</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="CONST_VAL">1</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
     </spirit:componentInstances>
@@ -913,10 +921,10 @@
         <spirit:internalPortReference spirit:componentRef="processing_system7_0" spirit:portRef="S_AXI_HP0_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="v_axi4s_vid_out_0" spirit:portRef="aclk"/>
         <spirit:internalPortReference spirit:componentRef="v_frmbuf_rd_0" spirit:portRef="ap_clk"/>
+        <spirit:internalPortReference spirit:componentRef="rst_ps7_0_100M" spirit:portRef="slowest_sync_clk"/>
         <spirit:internalPortReference spirit:componentRef="ps7_0_axi_periph" spirit:portRef="ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps7_0_axi_periph" spirit:portRef="S00_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps7_0_axi_periph" spirit:portRef="M00_ACLK"/>
-        <spirit:internalPortReference spirit:componentRef="rst_ps7_0_100M" spirit:portRef="slowest_sync_clk"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>processing_system7_0_FCLK_RESET0_N</spirit:name>
@@ -939,21 +947,10 @@
         <spirit:internalPortReference spirit:componentRef="ps7_0_axi_periph" spirit:portRef="ARESETN"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
-        <spirit:name>vid_vsync</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="v_axi4s_vid_out_0" spirit:portRef="vid_vsync"/>
-        <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="vsync"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>vid_hsync</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="v_axi4s_vid_out_0" spirit:portRef="vid_hsync"/>
-        <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="hsync"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
         <spirit:name>processing_system7_0_FCLK_CLK1</spirit:name>
         <spirit:internalPortReference spirit:componentRef="processing_system7_0" spirit:portRef="FCLK_CLK1"/>
         <spirit:internalPortReference spirit:componentRef="v_axi4s_vid_out_0" spirit:portRef="vid_io_out_clk"/>
         <spirit:internalPortReference spirit:componentRef="v_tc_0" spirit:portRef="clk"/>
-        <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="pclk"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>v_axi4s_vid_out_0_vid_data</spirit:name>
@@ -963,48 +960,13 @@
         <spirit:internalPortReference spirit:componentRef="xlslice_2" spirit:portRef="Din"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
-        <spirit:name>xlslice_0_Dout</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="xlslice_0" spirit:portRef="Dout"/>
-        <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="blue_din"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>xlslice_1_Dout</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="xlslice_1" spirit:portRef="Dout"/>
-        <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="green_din"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>xlslice_2_Dout</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="xlslice_2" spirit:portRef="Dout"/>
-        <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="red_din"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>v_axi4s_vid_out_0_vid_active_video</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="v_axi4s_vid_out_0" spirit:portRef="vid_active_video"/>
-        <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="de"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>Net</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="rst_ps7_0_100M" spirit:portRef="aux_reset_in"/>
-        <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="rstin"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>processing_system7_0_FCLK_CLK2</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="processing_system7_0" spirit:portRef="FCLK_CLK2"/>
-        <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="pclkx2"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>processing_system7_0_FCLK_CLK3</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="processing_system7_0" spirit:portRef="FCLK_CLK3"/>
-        <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="pclkx10"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>dvi_encoder_top_0_TMDS</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="TMDS"/>
+        <spirit:name>xlconstant_1_dout</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="xlconstant_1" spirit:portRef="dout"/>
         <spirit:externalPortReference spirit:portRef="TMDS_0"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
-        <spirit:name>dvi_encoder_top_0_TMDSB</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="dvi_encoder_top_0" spirit:portRef="TMDSB"/>
+        <spirit:name>xlconstant_2_dout</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="xlconstant_2" spirit:portRef="dout"/>
         <spirit:externalPortReference spirit:portRef="TMDSB_0"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
