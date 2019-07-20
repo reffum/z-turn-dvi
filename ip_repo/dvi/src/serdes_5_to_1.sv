@@ -16,6 +16,7 @@ module serdes_5_to_1
 	 #(
 	   .DATA_RATE_OQ("SDR"),
 	   .DATA_WIDTH(5),
+	   .TRISTATE_WIDTH(1),
 	   .INIT_OQ(5'b00000),
 	   .SERDES_MODE("MASTER")
 	   )

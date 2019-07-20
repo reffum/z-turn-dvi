@@ -1,6 +1,10 @@
 *~
 vsim.wlf
 transcript
+
+/software/*
+!software/fb_test
+
 /z-turn-dvi/*
 /src/ip/
 /src/ui/
