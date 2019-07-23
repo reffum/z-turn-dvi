@@ -46,29 +46,31 @@
  */
 
 #include <stdio.h>
+#include <assert.h>
 #include "platform.h"
 #include "xil_printf.h"
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xv_frmbufrd_l2.h"
+#include "xil_cache.h"
 
 XV_FrmbufRd_l2 FrmbufRd;
 
 #define VIDEO_BUFFER_SIZE	(1024*1024*32)
 
-uint8_t videoBuffer[VIDEO_BUFFER_SIZE];
+uint8_t videoBuffer[VIDEO_BUFFER_SIZE] __attribute__ ((aligned (256)));
 
+const int VideoSize = 640*480*3;
 
 int main()
 {
+	int r;
     init_platform();
 
     print("Hello World\n\r");
 
-    for(uint32_t* p = (uint32_t*)videoBuffer; p < (uint32_t*)(videoBuffer + VIDEO_BUFFER_SIZE); p++)
-    {
-    	*p = 0x000000FF;
-    }
+    Xil_DCacheDisable();
+
 
 //    r = XVFrmbufRd_Initialize(&FrmbufRd, XPAR_V_FRMBUF_RD_0_DEVICE_ID);
 //    assert(r == XST_SUCCESS);
@@ -84,16 +86,46 @@ int main()
 //    assert(r == XST_SUCCESS);
 //
 //    XVFrmbufRd_Start(&FrmbufRd);
-//    while(1);
-//    XVFrmbufRd_InterruptHandler();
 
+    XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_AP_CTRL, 0x0);
+
+    XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA, 20);
     XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_WIDTH_DATA, 640);
     XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_HEIGHT_DATA, 480);
-    XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_STRIDE_DATA, 0);
-    XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA, 20);
+    XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_STRIDE_DATA, 640*3);
     XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER_V_DATA, (UINTPTR)videoBuffer);
 
     XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_AP_CTRL, 0x81);
+
+    int i = 0;
+    for(int i = 0; i < VideoSize; i += 3)
+    {
+    	videoBuffer[i] = 0xFF;
+    	videoBuffer[i + 1] = 0xFF;
+    	videoBuffer[i + 2] = 0xFF;
+    }
+
+    for(int i = 0; i < VideoSize / 3; i += 3)
+    {
+    	videoBuffer[i] = 0xFF;
+    	videoBuffer[i + 1] = 0xFF;
+    	videoBuffer[i + 2] = 0xFF;
+    }
+
+    for(; i < VideoSize *2 / 3; i += 3)
+    {
+    	videoBuffer[i] = 0x00;
+    	videoBuffer[i + 1] = 0x00;
+    	videoBuffer[i + 2] = 0xFF;
+    }
+
+    for(; i < VideoSize; i += 3)
+    {
+    	videoBuffer[i] = 0xFF;
+    	videoBuffer[i + 1] = 0x00;
+    	videoBuffer[i + 2] = 0x00;
+    }
+
     while(1);
 
     cleanup_platform();
