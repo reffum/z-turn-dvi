@@ -60,7 +60,7 @@ XV_FrmbufRd_l2 FrmbufRd;
 
 uint8_t videoBuffer[VIDEO_BUFFER_SIZE] __attribute__ ((aligned (256)));
 
-const int VideoSize = 640*480*3;
+const int VideoSize = 800*600*4;
 
 int main()
 {
@@ -89,42 +89,32 @@ int main()
 
     XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_AP_CTRL, 0x0);
 
-    XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA, 20);
-    XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_WIDTH_DATA, 640);
-    XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_HEIGHT_DATA, 480);
-    XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_STRIDE_DATA, 640*3);
+    XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA, 10);
+    XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_WIDTH_DATA, 800);
+    XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_HEIGHT_DATA, 600);
+    XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_STRIDE_DATA, 800*4);
     XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER_V_DATA, (UINTPTR)videoBuffer);
 
     XV_frmbufrd_WriteReg(XPAR_V_FRMBUF_RD_0_S_AXI_CTRL_BASEADDR, XV_FRMBUFRD_CTRL_ADDR_AP_CTRL, 0x81);
 
-    int i = 0;
-    for(int i = 0; i < VideoSize; i += 3)
+    uint32_t *p = (uint32_t*)videoBuffer;
+
+    for(; p < (uint32_t*)(videoBuffer + VideoSize / 3); p++)
     {
-    	videoBuffer[i] = 0xFF;
-    	videoBuffer[i + 1] = 0xFF;
-    	videoBuffer[i + 2] = 0xFF;
+    	*p = 0x00FFFFFF;
     }
 
-    for(int i = 0; i < VideoSize / 3; i += 3)
+    for(; p < (uint32_t*)(videoBuffer + VideoSize *2 / 3); p++)
     {
-    	videoBuffer[i] = 0xFF;
-    	videoBuffer[i + 1] = 0xFF;
-    	videoBuffer[i + 2] = 0xFF;
+    	*p = 0x0000FF00;
     }
 
-    for(; i < VideoSize *2 / 3; i += 3)
+    for(; p < (uint32_t*)(videoBuffer + VideoSize); p++)
     {
-    	videoBuffer[i] = 0x00;
-    	videoBuffer[i + 1] = 0x00;
-    	videoBuffer[i + 2] = 0xFF;
+    	*p = 0x000000FF;
     }
 
-    for(; i < VideoSize; i += 3)
-    {
-    	videoBuffer[i] = 0xFF;
-    	videoBuffer[i + 1] = 0x00;
-    	videoBuffer[i + 2] = 0x00;
-    }
+
 
     while(1);
 
