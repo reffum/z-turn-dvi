@@ -5,6 +5,7 @@ transcript
 /software/*
 !software/fb_test
 
+/Packages/
 /z-turn-dvi/*
 /src/ip/
 /src/ui/
